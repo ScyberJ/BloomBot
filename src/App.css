@@ -1,0 +1,18 @@
+#root {
+  width: 100%;
+}
+
+.App {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.messages {
+  width: 90vw;
+  overflow-y: scroll;
+  max-height: 70vh;
+  padding: 0 20px;
+}
