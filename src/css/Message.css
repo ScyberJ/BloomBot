@@ -6,8 +6,8 @@
 }
 
 .message-text {
-  background-color: #fff;
-  color: black;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   padding: 10px 20px;
   margin: 0;
   margin-bottom: 10px;

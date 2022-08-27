@@ -16,7 +16,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --my-var: 20px;
+  --primary-color: #64b7ff;
+  --text-color: #121d1d;
 }
 
 a {

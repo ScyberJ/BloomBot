@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import reactLogo from "./assets/react.svg";
+import { FaArrowRight, FaTrash } from "react-icons/fa";
 import "./App.css";
 import Message from "./Components/Message";
 
@@ -13,10 +13,10 @@ const parameters = {
   eos_token_id: null,
 };
 
-let userQueries = [];
+let userMessages = [];
 
 function App() {
-  const [query, setQuery] = useState("");
+  const [message, setMessage] = useState("");
   const [dialogue, setDialogue] = useState([]);
   const [username, setUsername] = useState("");
 
@@ -40,7 +40,7 @@ function App() {
   const API_TOKEN = "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";
 
   async function request(data) {
-    setDialogue([...dialogue, [userIdentity, addPunctuationAtEnd(query)]]);
+    setDialogue([...dialogue, [userIdentity, addPunctuationAtEnd(message)]]);
 
     const response = await fetch(
       "https://api-inference.huggingface.co/models/bigscience/bloom",
@@ -65,7 +65,7 @@ function App() {
       .filter(
         (text, ind) =>
           // ind === 0 ||
-          userQueries.some((q) => text.includes(`${userIdentity}: ${q}`)) ||
+          userMessages.some((q) => text.includes(`${userIdentity}: ${q}`)) ||
           text.includes(`${botName}:`)
       )
       .map((text) => text.split(":"));
@@ -79,7 +79,7 @@ function App() {
     //     .flat()
     //     .filter(
     //       (text) =>
-    //         userQueries.some((q) => text.includes(`${userIdentity}: ${q}`)) ||
+    //         userMessages.some((q) => text.includes(`${userIdentity}: ${q}`)) ||
     //         text.includes(`${botName}:`)
     //     )
     // );
@@ -91,14 +91,21 @@ function App() {
   const botName = "AIChatBot";
   const userIdentity = username || "Guest";
 
+  const clear = () => {
+    setDialogue([]);
+    userMessages = [];
+  };
+
+  const onChangeHandler = (e, setFunc) => setFunc(e.target.value);
+
   const onClickHandler = async () => {
-    userQueries.push(query);
-    console.log(addPunctuationAtEnd(query));
+    userMessages.push(message);
+    console.log(addPunctuationAtEnd(message));
     await request({
       inputs:
         dialogue.map((speechArr) => speechArr.join(":")).join("\n") +
         "\n" +
-        `${userIdentity}: ${addPunctuationAtEnd(query)}\n${botName}: `,
+        `${userIdentity}: ${addPunctuationAtEnd(message)}\n${botName}: `,
       parameters,
     });
   };
@@ -118,29 +125,28 @@ function App() {
       <input
         className="username"
         type="text"
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => onChangeHandler(e, setUsername)}
         value={username}
         placeholder="Enter username here"
       />{" "}
       <br />
-      <input
-        className="query"
-        type="text"
-        ref={ref}
-        onChange={() => setQuery(ref.current.value)}
-      />
-      <br />
-      <input type="button" value="Submit" onClick={onClickHandler} />
-      <br />
-      <input
-        type="button"
-        value="Clear"
-        onClick={() => {
-          setDialogue([]);
-          userQueries = [];
-        }}
-      />
-      <br />
+      <div className="message-input-container">
+        <input
+          className="message"
+          type="text"
+          value={message}
+          onChange={(e) => onChangeHandler(e, setMessage)}
+          placeholder="Enter Message here"
+        />
+        <div className="btn-container">
+          <button onClick={onClickHandler}>
+            Send <FaArrowRight />
+          </button>
+          <button onClick={clear}>
+            Clear <FaTrash />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
