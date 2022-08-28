@@ -1,11 +1,13 @@
 {
-  "name": "chatbot",
+  "name": "BloomBot",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://scyberj.github.io/BloomBot/"
+  "homepage": "https://scyberj.github.io/BloomBot/",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d dist",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -18,6 +20,7 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
+    "gh-pages": "^4.0.0",
     "vite": "^3.0.7"
   }
 }
