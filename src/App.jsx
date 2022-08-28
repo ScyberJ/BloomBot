@@ -22,7 +22,7 @@ function App() {
   const [dialogue, setDialogue] = useState([]);
   const [username, setUsername] = useState("");
 
-  const BOT_NAME = "AIChatBot";
+  const BOT_NAME = "BloomBot";
   const USERNAME = username || "Guest";
 
   const API_TOKEN = "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";
