@@ -1,18 +1,122 @@
 #root {
+  max-width: 700px;
   width: 100%;
+  flex-grow: 1;
 }
 
 .App {
   width: inherit;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  margin: 0;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.navbar .bloom-logo {
+  height: 40px;
+}
+
+.navbar .username-input-container label,
+.logo-container span {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar .username-input-container label {
+  letter-spacing: 2px;
+}
+
+.navbar .username-input-container {
+  padding: 0 20px;
+}
+
+.navbar .username-input-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.logo-container {
+  width: 220px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.logo-container span {
+  font-size: 2.3em;
 }
 
 .messages {
-  width: 90vw;
   overflow-y: scroll;
-  max-height: 70vh;
+  height: 70vh;
   padding: 0 20px;
+  padding-top: 20px;
+  background-color: var(--darker-bg-color);
+}
+
+.message-input-container,
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.message-input-container {
+  height: 50px;
+  overflow: hidden;
+  color: var(--text-color);
+  flex-grow: 1;
+}
+
+.message-input-container span {
+  background-color: var(--primary-color);
+  padding: 10px 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.message-input-container input[type="text"] {
+  background-color: var(--primary-color);
+  height: inherit;
+  flex-grow: 1;
+}
+
+.btn-container button {
+  border-radius: 0;
+  height: inherit;
+}
+
+.btn-container {
+  width: fit-content;
+}
+
+.btn-send,
+.btn-clear {
+  transition: all 0.3s;
+}
+
+.btn-send:hover {
+  background-color: rgb(41, 39, 39);
+}
+
+.btn-clear {
+  background-color: #ff4060;
+}
+
+.btn-clear:hover {
+  background-color: #ff657f;
 }

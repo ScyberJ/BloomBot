@@ -1,20 +1,37 @@
-@import url(../App.css);
-
 .message {
   display: flex;
   flex-direction: column;
 }
 
 .message-text {
-  background-color: var(--primary-color);
-  color: var(--text-color);
+  background: rgb(205, 227, 254);
+  background: -moz-linear-gradient(
+    40deg,
+    rgba(205, 227, 254, 1) 0%,
+    rgba(237, 91, 255, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    40deg,
+    rgba(205, 227, 254, 1) 0%,
+    rgba(237, 91, 255, 1) 100%
+  );
+  background: linear-gradient(
+    40deg,
+    rgba(205, 227, 254, 1) 0%,
+    rgba(237, 91, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cde3fe",endColorstr="#ed5bff",GradientType=1);
+  color: var(--text-color-inverted);
+  font-weight: bold;
   padding: 10px 20px;
   margin: 0;
   margin-bottom: 10px;
   border-radius: 10px;
   width: fit-content;
+  box-shadow: -3px 3px 10px 0 var(--primary-color);
 }
 
 .username {
   display: block;
+  color: var(--text-color);
 }

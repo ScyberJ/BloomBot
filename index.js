@@ -15,12 +15,11 @@
 //     console.log(JSON.stringify(response));
 // });
 
-const string = `John: Where are you.
-John: I cant find you.
-Friend:  Im right here buddy.
-John: You sound funny.The present invention relates to a lubricant`
+const string = `AIChatBot: I am happy to help you out! When is your birthday?
+
+Since I am still a beginner, this feels like a lousy chatbot. What should I do to improve it?`
 
 const matcher = new RegExp(/.*:{1}.*[?!.]{1,2}/, "g")
-
+console.log(string.includes(`AIChatBot:`))
 console.log('the result of match:' + string.match(matcher))
 console.log('the result of test:' + matcher.test(string))

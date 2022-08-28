@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { FaArrowRight, FaTrash } from "react-icons/fa";
+import { FaArrowRight, FaTrash, FaUser } from "react-icons/fa";
+import bloomLogo from "./assets/BloomLogo.png";
 import "./App.css";
+import BindedInput from "./Components/BindedInput";
 import Message from "./Components/Message";
 
 const parameters = {
@@ -20,27 +22,105 @@ function App() {
   const [dialogue, setDialogue] = useState([]);
   const [username, setUsername] = useState("");
 
-  const addPunctuationAtEnd = (string) =>
-    string + (string.charAt(string.length - 1).match(/[.?!]/) ? "" : ".");
+  const BOT_NAME = "AIChatBot";
+  const USERNAME = username || "Guest";
+
+  const API_TOKEN = "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";
 
   const properSentence = new RegExp(/.*:{1}.*[?!.]{1,2}/, "g");
 
-  const ref = useRef(null);
   const messages = useRef(null);
 
+  const sendBtn = useRef(null);
+
+  const formatInputForAPI = () =>
+    `${stringifyDialogue(dialogue)}\n${USERNAME}: ${addPunctuationAtEnd(
+      message
+    )}\n${BOT_NAME}:`;
+
+  const addPunctuationAtEnd = (string) =>
+    string + (string.charAt(string.length - 1).match(/[.?!]/) ? "" : ".");
+
+  const stringifyDialogue = (dialogue) =>
+    dialogue.map((speechArr) => speechArr.join(":")).join("\n");
+
+  const sanitizeGeneratedText = (generatedText) => {
+    if (!generatedText) return;
+    let stopInd = { ind: null, stop: false };
+    return (
+      generatedText
+        .split("\n")
+        .map((text) => {
+          return text.match(properSentence);
+        })
+        // filters out null values
+        .filter((text) => text)
+        // flattens the 2d array
+        .flat()
+        // checks if ai generated any user responses and filters them out
+        // .filter(
+        //   (text) =>
+        //     userMessages.some((q) => text.includes(`${USERNAME}: ${q}`)) ||
+        //     text.includes(`${BOT_NAME}:`)
+        // )
+        .map((text, ind, arr) => {
+          if (
+            !(
+              userMessages.some((msg) =>
+                text.includes(`${USERNAME}: ${msg}`)
+              ) || text.includes(`${BOT_NAME}:`)
+            ) &&
+            !stopInd.stop
+          ) {
+            stopInd = { ind: arr.indexOf(text), stop: true };
+            console.log("this is the culprit " + text);
+          }
+          return text;
+        })
+        .slice(stopInd.ind ? (0, stopInd.ind) : 0)
+        // turns dialogue string format into more friendly array format
+        .map((text) => text.split(":"))
+    );
+  };
+
+  const renderMessages = () => {
+    return dialogue.map(([username, message]) => (
+      <Message
+        key={message.length + username.length * Math.random() * 5}
+        username={username}
+        alignment={username === USERNAME ? "left" : "right"}
+      >
+        {message}
+      </Message>
+    ));
+  };
+
+  // keeps chat feed at the latest chat
   useEffect(() => {
     if (messages) {
-      messages.current.addEventListener("DOMNodeInserted", (event) => {
-        const { currentTarget: target } = event;
-        target.scroll({ top: target.scrollHeight, behavior: "smooth" });
+      const messagesObserver = new MutationObserver(
+        (mutationList, observer) => {
+          mutationList.forEach((mutation) => {
+            if (mutation.type === "childList") {
+              mutation.target.scroll({
+                top: mutation.target.scrollHeight,
+                behavior: "smooth",
+              });
+            }
+          });
+        }
+      );
+      messagesObserver.observe(messages.current, {
+        childList: true,
+        subtree: true,
+        attributes: true,
       });
     }
   }, []);
 
-  const API_TOKEN = "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";
-
   async function request(data) {
-    setDialogue([...dialogue, [userIdentity, addPunctuationAtEnd(message)]]);
+    setDialogue([...dialogue, [USERNAME, addPunctuationAtEnd(message)]]);
+    setMessage("");
 
     const response = await fetch(
       "https://api-inference.huggingface.co/models/bigscience/bloom",
@@ -52,98 +132,72 @@ function App() {
     );
 
     const json = await response.json();
-    console.log(json);
+    // destructuring of response
     const [{ generated_text }] = json;
-    const sanitizedText = generated_text
-      .split("\n")
-      .map((text, ind) => {
-        // if (ind === 0) return text;
-        return text.match(properSentence);
-      })
-      .filter((text) => text)
-      .flat()
-      .filter(
-        (text, ind) =>
-          // ind === 0 ||
-          userMessages.some((q) => text.includes(`${userIdentity}: ${q}`)) ||
-          text.includes(`${botName}:`)
-      )
-      .map((text) => text.split(":"));
-    // console.log(
-    //   generated_text
-    //     .split("\n")
-    //     .map((text) => {
-    //       return text.match(properSentence);
-    //     })
-    //     .filter((text) => text)
-    //     .flat()
-    //     .filter(
-    //       (text) =>
-    //         userMessages.some((q) => text.includes(`${userIdentity}: ${q}`)) ||
-    //         text.includes(`${botName}:`)
-    //     )
-    // );
-    console.log(generated_text);
-    console.log(sanitizedText);
+
+    const sanitizedText = sanitizeGeneratedText(generated_text);
+    console.log("this is the original text: " + generated_text);
+    console.log("this is the sanitized text: " + sanitizedText);
     setDialogue(sanitizedText);
   }
-
-  const botName = "AIChatBot";
-  const userIdentity = username || "Guest";
 
   const clear = () => {
     setDialogue([]);
     userMessages = [];
   };
 
-  const onChangeHandler = (e, setFunc) => setFunc(e.target.value);
-
   const onClickHandler = async () => {
     userMessages.push(message);
-    console.log(addPunctuationAtEnd(message));
+    if (dialogue.length > 40) {
+      setDialogue(dialogue.slice(5));
+    }
     await request({
-      inputs:
-        dialogue.map((speechArr) => speechArr.join(":")).join("\n") +
-        "\n" +
-        `${userIdentity}: ${addPunctuationAtEnd(message)}\n${botName}: `,
+      inputs: formatInputForAPI(),
       parameters,
     });
   };
 
+  const onKeyDownHandler = (e) => {
+    if (e.key === "Enter") {
+      sendBtn.current.click();
+    }
+  };
+
   return (
     <div className="App">
+      <nav className="navbar">
+        <div className="logo-container">
+          <img className="bloom-logo" src={bloomLogo} alt="BLOOM logo" />
+          <span className="bot-text">Bot</span>
+        </div>
+        <div className="username-input-container">
+          <label htmlFor="username">
+            <FaUser /> Username
+          </label>
+          <BindedInput
+            name={"username"}
+            bindedVar={username}
+            setVarFunc={setUsername}
+          />
+        </div>
+      </nav>
       <div className="messages" ref={messages}>
-        {dialogue.map(([username, message]) => (
-          <Message
-            username={username}
-            alignment={username === userIdentity ? "left" : "right"}
-          >
-            {message}
-          </Message>
-        ))}
+        {renderMessages()}
       </div>
-      <input
-        className="username"
-        type="text"
-        onChange={(e) => onChangeHandler(e, setUsername)}
-        value={username}
-        placeholder="Enter username here"
-      />{" "}
-      <br />
       <div className="message-input-container">
-        <input
-          className="message"
-          type="text"
-          value={message}
-          onChange={(e) => onChangeHandler(e, setMessage)}
-          placeholder="Enter Message here"
+        <span className="user-id">{USERNAME}:</span>
+        <BindedInput
+          name={"message"}
+          bindedVar={message}
+          setVarFunc={setMessage}
+          onKeyDownHandler={onKeyDownHandler}
         />
         <div className="btn-container">
-          <button onClick={onClickHandler}>
-            Send <FaArrowRight />
+          <button className="btn-send" ref={sendBtn} onClick={onClickHandler}>
+            <FaArrowRight />
           </button>
-          <button onClick={clear}>
-            Clear <FaTrash />
+          <button className="btn-clear" onClick={clear}>
+            <FaTrash />
           </button>
         </div>
       </div>
