@@ -2,6 +2,7 @@
   "name": "chatbot",
   "private": true,
   "version": "0.1.0",
+  "homepage": "https://scyberj.github.io/BloomBot/"
   "type": "module",
   "scripts": {
     "dev": "vite",
