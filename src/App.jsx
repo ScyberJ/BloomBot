@@ -77,7 +77,7 @@ function App() {
           }
           return text;
         })
-        .slice(stopInd.ind ? (0, stopInd.ind) : 0)
+        .slice(0, stopInd.ind ? stopInd.ind : 50)
         // turns dialogue string format into more friendly array format
         .map((text) => text.split(":"))
     );
