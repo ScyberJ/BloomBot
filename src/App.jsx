@@ -57,12 +57,6 @@ function App() {
         .filter((text) => text)
         // flattens the 2d array
         .flat()
-        // checks if ai generated any user responses and filters them out
-        // .filter(
-        //   (text) =>
-        //     userMessages.some((q) => text.includes(`${USERNAME}: ${q}`)) ||
-        //     text.includes(`${BOT_NAME}:`)
-        // )
         .map((text, ind, arr) => {
           if (
             !(
@@ -77,7 +71,7 @@ function App() {
           }
           return text;
         })
-        .slice(0, stopInd.ind ? stopInd.ind : 50)
+        .slice(0, stopInd.ind ? stopInd.ind : 100)
         // turns dialogue string format into more friendly array format
         .map((text) => text.split(":"))
     );
@@ -149,7 +143,7 @@ function App() {
   const onClickHandler = async () => {
     userMessages.push(message);
     if (dialogue.length > 40) {
-      setDialogue(dialogue.slice(5));
+      setDialogue(dialogue.slice(10));
     }
     await request({
       inputs: formatInputForAPI(),
