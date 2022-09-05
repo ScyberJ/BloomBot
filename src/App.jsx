@@ -113,7 +113,11 @@ function App() {
   }, []);
 
   async function request(data) {
-    setDialogue([...dialogue, [USERNAME, addPunctuationAtEnd(message)]]);
+    setDialogue([
+      ...dialogue,
+      [USERNAME, addPunctuationAtEnd(message)],
+      [BOT_NAME, "Loading..."],
+    ]);
     setMessage("");
 
     const response = await fetch(
@@ -126,6 +130,7 @@ function App() {
     );
 
     const json = await response.json();
+
     // destructuring of response
     const [{ generated_text }] = json;
 
