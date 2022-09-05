@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { FaArrowRight, FaTrash, FaUser } from "react-icons/fa";
-import bloomLogo from "./assets/BloomLogo.png";
+import { FaArrowRight, FaCog, FaTrash, FaUser } from "react-icons/fa";
 import "./App.css";
+import Navbar from "./Components/Navbar";
 import BindedInput from "./Components/BindedInput";
 import Message from "./Components/Message";
+import Config from "./Components/Config";
 
 const parameters = {
   max_new_tokens: 40,
@@ -164,40 +165,28 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="navbar">
-        <div className="logo-container">
-          <img className="bloom-logo" src={bloomLogo} alt="BLOOM logo" />
-          <span className="bot-text">Bot</span>
+      <Config setGlobalUsername={setUsername} />
+      <div className="chat-container">
+        <Navbar />
+        <div className="messages" ref={messages}>
+          {renderMessages()}
         </div>
-        <div className="username-input-container">
-          <label htmlFor="username">
-            <FaUser /> Username
-          </label>
+        <div className="message-input-container">
+          <span className="user-id">{USERNAME}:</span>
           <BindedInput
-            name={"username"}
-            bindedVar={username}
-            setVarFunc={setUsername}
+            name={"message"}
+            bindedVar={message}
+            setVarFunc={setMessage}
+            onKeyDownHandler={onKeyDownHandler}
           />
-        </div>
-      </nav>
-      <div className="messages" ref={messages}>
-        {renderMessages()}
-      </div>
-      <div className="message-input-container">
-        <span className="user-id">{USERNAME}:</span>
-        <BindedInput
-          name={"message"}
-          bindedVar={message}
-          setVarFunc={setMessage}
-          onKeyDownHandler={onKeyDownHandler}
-        />
-        <div className="btn-container">
-          <button className="btn-send" ref={sendBtn} onClick={onClickHandler}>
-            <FaArrowRight />
-          </button>
-          <button className="btn-clear" onClick={clear}>
-            <FaTrash />
-          </button>
+          <div className="btn-container">
+            <button className="btn-send" ref={sendBtn} onClick={onClickHandler}>
+              <FaArrowRight />
+            </button>
+            <button className="btn-clear" onClick={clear}>
+              <FaTrash />
+            </button>
+          </div>
         </div>
       </div>
     </div>

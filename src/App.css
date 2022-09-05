@@ -1,7 +1,5 @@
 #root {
-  max-width: 700px;
   width: 100%;
-  flex-grow: 1;
 }
 
 #root,
@@ -19,7 +17,8 @@
 .navbar .username-input-container,
 .logo-container,
 .message-input-container,
-.btn-container {
+.btn-container,
+.chat-container {
   display: flex;
   justify-content: center;
 }
@@ -27,7 +26,11 @@
 .App {
   width: inherit;
   flex-grow: 1;
+}
+
+.chat-container {
   flex-direction: column;
+  flex-grow: 2;
 }
 
 .navbar {

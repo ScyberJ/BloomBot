@@ -1,0 +1,5 @@
+.config-container {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  flex-grow: 1;
+}
