@@ -18,13 +18,19 @@
 .logo-container,
 .message-input-container,
 .btn-container,
-.chat-container {
+.chat-container,
+.main {
   display: flex;
   justify-content: center;
 }
 
 .App {
   width: inherit;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.main {
   flex-grow: 1;
 }
 
@@ -36,7 +42,7 @@
 .navbar {
   margin: 0;
   width: 100%;
-  height: 100px;
+  height: 70px;
   justify-content: space-between;
   background-color: var(--primary-color);
   color: var(--text-color);
@@ -76,7 +82,8 @@
 
 .messages {
   overflow-y: scroll;
-  height: 70vh;
+  /* height: 70vh; */
+  flex-grow: 1;
   padding: 0 20px;
   padding-top: 20px;
   background-color: var(--darker-bg-color);
@@ -91,7 +98,6 @@
   height: 50px;
   overflow: hidden;
   color: var(--text-color);
-  flex-grow: 1;
 }
 
 .message-input-container span {
@@ -121,12 +127,4 @@
 
 .btn-send:hover {
   background-color: rgb(41, 39, 39);
-}
-
-.btn-clear {
-  background-color: #ff4060;
-}
-
-.btn-clear:hover {
-  background-color: #ff657f;
 }

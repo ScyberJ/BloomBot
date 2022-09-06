@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    username: '',
-    botname: '',
+    username: 'Guest',
+    botname: 'BloomBot',
     messages: [],
 }
 

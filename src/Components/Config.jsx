@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaCog } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import "../css/Config.css";
+import { setBotname, setUsername } from "../Features/chat/chatSlice";
 
-function Config({ setGlobalUsername }) {
-  const [username, setUsername] = useState("");
+function Config() {
+  const dispatch = useDispatch();
 
-  const onChangeHandler = (e) => {
-    setUsername(e.currentTarget.value);
-  };
+  const usernameInput = useRef(null);
+  const botnameInput = useRef(null);
 
   const onClickHandler = () => {
-    setGlobalUsername(username);
+    if (usernameInput.current.value)
+      dispatch(setUsername(usernameInput.current.value));
+    if (botnameInput.current.value)
+      dispatch(setBotname(botnameInput.current.value));
   };
 
   return (
@@ -18,12 +22,9 @@ function Config({ setGlobalUsername }) {
       <h1 className="config-title">
         <FaCog /> Config
       </h1>
-      <input
-        type="text"
-        placeholder="Enter Username"
-        value={username}
-        onChange={onChangeHandler}
-      />
+      <input type="text" ref={usernameInput} placeholder="Enter Username" />
+      <input type="text" ref={botnameInput} placeholder="Enter Botname" />
+      <br />
       <button onClick={onClickHandler}>Save</button>
     </div>
   );
