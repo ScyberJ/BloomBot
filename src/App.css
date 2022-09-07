@@ -27,11 +27,11 @@
 .App {
   width: inherit;
   flex-grow: 1;
-  flex-direction: column;
 }
 
 .main {
   flex-grow: 1;
+  flex-direction: column;
 }
 
 .chat-container {

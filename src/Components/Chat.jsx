@@ -1,6 +1,5 @@
 import React from "react";
 import Messages from "./Messages";
-import Navbar from "./Navbar";
 import MessageInput from "./MessageInput";
 import ChatBar from "./ChatBar";
 

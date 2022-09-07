@@ -1,16 +1,16 @@
 import "./App.css";
 import Config from "./Components/Config";
-import Chat from "./Components/Chat";
+import ActiveChat from "./Components/ActiceChat";
 import Navbar from "./Components/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
       <div className="main">
+        <Navbar />
         <Config />
-        <Chat />
       </div>
+      <ActiveChat />
     </div>
   );
 }
