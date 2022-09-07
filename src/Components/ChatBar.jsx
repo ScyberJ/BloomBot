@@ -1,10 +1,11 @@
 import "../css/ChatBar.css";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearMessages } from "../Features/chat/chatSlice";
 import { FaTrash } from "react-icons/fa";
 
 function ChatBar() {
+  const dispatch = useDispatch();
   const botname = useSelector((state) => state.chat.botname);
 
   const clear = () => {

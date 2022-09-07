@@ -1,0 +1,23 @@
+.chat-logs,
+.chat-logs-header {
+  display: flex;
+}
+
+.chat-logs {
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  flex-grow: 1;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.chat-logs-header {
+  padding: 0 10px;
+  justify-content: space-between;
+  position: relative;
+}
+
+.chat-logs hr {
+  width: 90%;
+}

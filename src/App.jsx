@@ -1,6 +1,6 @@
 import "./App.css";
-import Config from "./Components/Config";
-import ActiveChat from "./Components/ActiceChat";
+import ActiveChat from "./Components/Chat";
+import ChatLogs from "./Components/ChatLogs";
 import Navbar from "./Components/Navbar";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <div className="main">
         <Navbar />
-        <Config />
+        <ChatLogs />
       </div>
       <ActiveChat />
     </div>

@@ -1,6 +1,0 @@
-.config-container {
-  max-width: 300px;
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  flex-grow: 1;
-}

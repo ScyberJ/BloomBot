@@ -1,0 +1,14 @@
+.new-chat-container {
+  flex-grow: 1;
+  max-width: fit-content;
+  height: fit-content;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  position: absolute;
+  right: 0;
+}
+
+.new-chat-inputs {
+  display: flex;
+  flex-direction: column;
+}
