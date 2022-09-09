@@ -1,7 +1,7 @@
 import "./App.css";
-import ActiveChat from "./Components/Chat";
-import ChatLogs from "./Components/ChatLogs";
 import Navbar from "./Components/Navbar";
+import ChatLogs from "./Components/ChatLogs";
+import ActiveChat from "./Components/Chat";
 
 function App() {
   return (

@@ -27,6 +27,6 @@ export const chatLogSlice = createSlice({
     }
 })
 
-export const { addChat, removeChat, clearChats } = chatLogSlice.actions
+export const { addChat, removeChat, updateChat, clearChats } = chatLogSlice.actions
 
 export default chatLogSlice.reducer

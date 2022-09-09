@@ -1,4 +1,3 @@
-import React from "react";
 import "../css/BindedInput.css";
 
 function BindedInput({ name, bindedVar, setVarFunc, onKeyDownHandler }) {

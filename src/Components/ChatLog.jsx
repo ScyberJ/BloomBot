@@ -1,6 +1,5 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { setChat } from "../Features/chat/chatSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ChatLog({ id, title, body }) {
   const dispatch = useDispatch();

@@ -1,4 +1,3 @@
-import React from "react";
 import "../css/Message.css";
 
 function Message({ username, children, alignment }) {

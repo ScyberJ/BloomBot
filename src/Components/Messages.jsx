@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 import Message from "./Message";
+import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 
 function Messages() {
   const { messages, username, ...chat } = useSelector((state) => state.chat);

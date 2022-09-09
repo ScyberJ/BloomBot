@@ -1,8 +1,8 @@
 import "../css/NewChat.css";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setBotname, setId, setUsername } from "../Features/chat/chatSlice";
+import { setChat } from "../Features/chat/chatSlice";
 import { addChat } from "../Features/chatLog/chatLogSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
 
 function NewChat({ isVisible, setIsVisible }) {
   const dispatch = useDispatch();
@@ -23,22 +23,23 @@ function NewChat({ isVisible, setIsVisible }) {
     const username = usernameInput.current.value;
     const botname = botnameInput.current.value;
 
-    if (username) dispatch(setUsername(username));
-    else dispatch(setUsername("Guest"));
+    const id =
+      (username || "Guest") +
+      Math.floor(Math.random() * 100) +
+      (botname || "BloomBot");
 
-    if (botname) dispatch(setBotname(botname));
-    else dispatch(setBotname("BloomBot"));
+    const newChat = {
+      id,
+      username: username || "Guest",
+      botname: botname || "BloomBot",
+      messages: [],
+    };
 
-    dispatch(
-      setId(
-        (username || "Guest") +
-          Math.floor(Math.random() * 100) +
-          (botname || "BloomBot")
-      )
-    );
+    dispatch(setChat(newChat));
 
     setAllowChange(true);
     setIsVisible(!isVisible);
+
     usernameInput.current.value = "";
     botnameInput.current.value = "";
   };

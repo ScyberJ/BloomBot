@@ -1,7 +1,6 @@
-import React from "react";
+import ChatBar from "./ChatBar";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
-import ChatBar from "./ChatBar";
 
 function Chat() {
   return (

@@ -1,8 +1,9 @@
 import BindedInput from "./BindedInput";
-import React, { useRef, useState, useEffect } from "react";
-import { FaArrowRight, FaTrash } from "react-icons/fa";
+import { updateChat } from "../Features/chatLog/chatLogSlice";
+import { setMessages } from "../Features/chat/chatSlice";
+import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { clearMessages, setMessages } from "../Features/chat/chatSlice";
+import { useRef, useState, useEffect } from "react";
 
 const parameters = {
   max_new_tokens: 40,
@@ -20,7 +21,8 @@ function MessageInput() {
   const dispatch = useDispatch();
 
   const [message, setMessage] = useState("");
-  const { botname, username, messages } = useSelector((state) => state.chat);
+  const chat = useSelector((state) => state.chat);
+  const { id, botname, username, messages } = chat;
 
   const API_TOKEN = "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";
 
@@ -62,7 +64,6 @@ function MessageInput() {
             !stopInd.stop
           ) {
             stopInd = { ind: arr.indexOf(text), stop: true };
-            console.log("this is the culprit " + text);
           }
           return text;
         })
@@ -70,6 +71,23 @@ function MessageInput() {
         // turns dialogue string format into more friendly array format
         .map((text) => text.split(":"))
     );
+  };
+
+  const onClickHandler = async () => {
+    userMessages.push(message);
+    if (messages.length > 30) {
+      dispatch(setMessages(messages.slice(10)));
+    }
+    await request({
+      inputs: formatMessagesForAPIinput(),
+      parameters,
+    });
+  };
+
+  const onKeyDownHandler = (e) => {
+    if (e.key === "Enter") {
+      sendBtn.current.click();
+    }
   };
 
   async function request(data) {
@@ -102,22 +120,9 @@ function MessageInput() {
     dispatch(setMessages(sanitizedText));
   }
 
-  const onClickHandler = async () => {
-    userMessages.push(message);
-    if (messages.length > 40) {
-      dispatch(setMessages(messages.slice(10)));
-    }
-    await request({
-      inputs: formatMessagesForAPIinput(),
-      parameters,
-    });
-  };
-
-  const onKeyDownHandler = (e) => {
-    if (e.key === "Enter") {
-      sendBtn.current.click();
-    }
-  };
+  useEffect(() => {
+    dispatch(updateChat(chat));
+  }, [messages]);
 
   return (
     <div className="message-input-container">

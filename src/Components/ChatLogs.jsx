@@ -1,9 +1,8 @@
 import "../css/ChatLogs.css";
-import React from "react";
 import ChatLog from "./ChatLog";
 import NewChat from "./NewChat";
-import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function ChatLogs() {

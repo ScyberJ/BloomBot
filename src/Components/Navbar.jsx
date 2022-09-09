@@ -1,4 +1,3 @@
-import React from "react";
 import bloomLogo from "../assets/BloomLogo.png";
 
 function Navbar() {
