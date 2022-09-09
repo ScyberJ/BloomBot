@@ -1,3 +1,4 @@
+import "../css/MessageInput.css";
 import BindedInput from "./BindedInput";
 import { updateChat } from "../Features/chatLog/chatLogSlice";
 import { setMessages } from "../Features/chat/chatSlice";

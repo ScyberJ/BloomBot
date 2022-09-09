@@ -1,3 +1,4 @@
+import "../css/Messages.css";
 import Message from "./Message";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";

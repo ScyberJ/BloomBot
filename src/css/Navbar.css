@@ -1,0 +1,29 @@
+.navbar,
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar {
+  margin: 0;
+  width: 100%;
+  height: 70px;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.navbar .bloom-logo {
+  height: 40px;
+}
+
+.logo-container {
+  width: 220px;
+  align-items: center;
+}
+
+.logo-container span {
+  font-size: 2.3em;
+  font-weight: bold;
+  text-transform: uppercase;
+}

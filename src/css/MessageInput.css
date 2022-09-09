@@ -1,0 +1,52 @@
+.message-input-container,
+.message-input-container > span,
+.message-input-container > input[type="text"],
+.btn-container,
+.btn-container > button {
+  height: 100%;
+}
+
+.message-input-container,
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.message-input-container,
+.btn-container {
+  align-items: center;
+}
+
+.message-input-container {
+  height: 50px;
+  overflow: hidden;
+  color: var(--text-color);
+}
+
+.message-input-container span {
+  background-color: var(--primary-color);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.message-input-container input[type="text"] {
+  background-color: var(--primary-color);
+  flex-grow: 1;
+}
+
+.btn-container button {
+  border-radius: 0;
+}
+
+.btn-container {
+  width: fit-content;
+}
+
+.btn-send {
+  transition: all 0.3s;
+}
+
+.btn-send:hover {
+  background-color: rgb(41, 39, 39);
+}

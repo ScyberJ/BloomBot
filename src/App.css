@@ -3,22 +3,12 @@
 }
 
 #root,
-.App,
-.message-input-container,
-.message-input-container > span,
-.message-input-container > input[type="text"],
-.btn-container,
-.btn-container > button {
+.App {
   height: 100%;
 }
 
 .App,
-.navbar,
-.navbar .username-input-container,
-.logo-container,
-.message-input-container,
-.btn-container,
-.chat-container,
+.username-input-container,
 .main {
   display: flex;
   justify-content: center;
@@ -34,97 +24,17 @@
   flex-direction: column;
 }
 
-.chat-container {
-  flex-direction: column;
-  flex-grow: 2;
-}
-
-.navbar {
-  margin: 0;
-  width: 100%;
-  height: 70px;
-  justify-content: space-between;
-  background-color: var(--primary-color);
-  color: var(--text-color);
-}
-
-.navbar .bloom-logo {
-  height: 40px;
-}
-
-.navbar .username-input-container label,
-.logo-container span {
+.username-input-container label {
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.navbar .username-input-container label {
+.username-input-container label {
   letter-spacing: 2px;
 }
 
-.navbar .username-input-container {
-  padding: 0 20px;
-}
-
-.navbar .username-input-container {
+.username-input-container {
   flex-direction: column;
   align-items: flex-start;
-}
-
-.logo-container {
-  width: 220px;
-  align-items: center;
-}
-
-.logo-container span {
-  font-size: 2.3em;
-}
-
-.messages {
-  overflow-y: scroll;
-  /* height: 70vh; */
-  flex-grow: 1;
   padding: 0 20px;
-  padding-top: 20px;
-  background-color: var(--darker-bg-color);
-}
-
-.message-input-container,
-.btn-container {
-  align-items: center;
-}
-
-.message-input-container {
-  height: 50px;
-  overflow: hidden;
-  color: var(--text-color);
-}
-
-.message-input-container span {
-  background-color: var(--primary-color);
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-}
-
-.message-input-container input[type="text"] {
-  background-color: var(--primary-color);
-  flex-grow: 1;
-}
-
-.btn-container button {
-  border-radius: 0;
-}
-
-.btn-container {
-  width: fit-content;
-}
-
-.btn-send,
-.btn-clear {
-  transition: all 0.3s;
-}
-
-.btn-send:hover {
-  background-color: rgb(41, 39, 39);
 }

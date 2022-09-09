@@ -1,3 +1,4 @@
+import "../css/ChatLog.css";
 import { setChat } from "../Features/chat/chatSlice";
 import { useDispatch, useSelector } from "react-redux";
 

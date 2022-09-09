@@ -1,3 +1,4 @@
+import "../css/Navbar.css";
 import bloomLogo from "../assets/BloomLogo.png";
 
 function Navbar() {

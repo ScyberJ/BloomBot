@@ -1,3 +1,4 @@
+import "../css/Chat.css";
 import ChatBar from "./ChatBar";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
