@@ -15,7 +15,11 @@ export const chatLogSlice = createSlice({
             state.chats = state.chats.slice(0, action.payload) + state.chats.slice(action.payload + 1)
         },
         updateChat: (state, action) => {
-            state.chats[action.payload.index] = action.payload.chat
+            state.chats = state.chats.map(chatlog => {
+                if (chatlog.id === action.payload.id)
+                    return action.payload
+                else return chatlog
+            })
         },
         clearChats: (state) => {
             state.chats = []

@@ -1,23 +1,46 @@
-import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "../css/NewChat.css";
-import { setBotname, setUsername } from "../Features/chat/chatSlice";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setBotname, setId, setUsername } from "../Features/chat/chatSlice";
 import { addChat } from "../Features/chatLog/chatLogSlice";
 
 function NewChat({ isVisible, setIsVisible }) {
   const dispatch = useDispatch();
   const chat = useSelector((state) => state.chat);
 
+  const [allowChange, setAllowChange] = useState(false);
+
   const usernameInput = useRef(null);
   const botnameInput = useRef(null);
 
-  const onClickHandler = () => {
-    if (usernameInput.current.value)
-      dispatch(setUsername(usernameInput.current.value));
-    if (botnameInput.current.value)
-      dispatch(setBotname(botnameInput.current.value));
+  useEffect(() => {
+    if (!allowChange) return;
     dispatch(addChat(chat));
+    setAllowChange(false);
+  }, [chat.id]);
+
+  const onClickHandler = () => {
+    const username = usernameInput.current.value;
+    const botname = botnameInput.current.value;
+
+    if (username) dispatch(setUsername(username));
+    else dispatch(setUsername("Guest"));
+
+    if (botname) dispatch(setBotname(botname));
+    else dispatch(setBotname("BloomBot"));
+
+    dispatch(
+      setId(
+        (username || "Guest") +
+          Math.floor(Math.random() * 100) +
+          (botname || "BloomBot")
+      )
+    );
+
+    setAllowChange(true);
     setIsVisible(!isVisible);
+    usernameInput.current.value = "";
+    botnameInput.current.value = "";
   };
 
   return (

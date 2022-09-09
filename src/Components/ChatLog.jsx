@@ -1,9 +1,21 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setChat } from "../Features/chat/chatSlice";
 
-function ChatLog({ title, body }) {
+function ChatLog({ id, title, body }) {
+  const dispatch = useDispatch();
+  const chats = useSelector((state) => state.chatLog.chats);
+
+  const onClickHandler = () => {
+    chats.forEach((chatlog) => {
+      if (chatlog.id === id) dispatch(setChat(chatlog));
+    });
+  };
+
   return (
-    <div className="chat">
+    <div className="chat-log" onClick={onClickHandler}>
       <h1>{title}</h1>
+      <span className="id">{id}</span>
       <span>{body}</span>
     </div>
   );
