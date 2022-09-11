@@ -20,7 +20,7 @@
 }
 
 .main {
-  flex-grow: 1;
+  width: clamp(300px, 450px, 550px);
   flex-direction: column;
 }
 

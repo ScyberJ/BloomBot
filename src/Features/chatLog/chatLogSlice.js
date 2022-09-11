@@ -16,7 +16,7 @@ export const chatLogSlice = createSlice({
         removeChatLog: (state, action) => {
             state.chats = state.chats.slice(0, action.payload).concat(state.chats.slice(action.payload + 1))
         },
-        updateChatLog: (state, action) => {
+        setChatLog: (state, action) => {
             state.chats = state.chats.map(chatlog => {
                 if (chatlog.id === action.payload.id)
                     return action.payload
@@ -29,6 +29,6 @@ export const chatLogSlice = createSlice({
     }
 })
 
-export const { addChatLog, removeChatLog, updateChatLog, clearChatLogs } = chatLogSlice.actions
+export const { addChatLog, removeChatLog, setChatLog, clearChatLogs } = chatLogSlice.actions
 
 export default chatLogSlice.reducer

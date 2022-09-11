@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 function ChatLog({ id, title, body }) {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chatLog.chats);
-  const chatID = useSelector((state) => state.chat.id);
+  const chatId = useSelector((state) => state.chat.id);
 
   const switchToChat = () => {
     chats.forEach((chatlog) => {
@@ -22,7 +22,7 @@ function ChatLog({ id, title, body }) {
       if (chatLog.id === id) chatLogIndex = ind;
     });
 
-    if (chatID === id) {
+    if (chatId === id) {
       dispatch(setChat(chatLogIndex > 0 ? chats[chatLogIndex - 1] : chats[0]));
     }
 
@@ -32,11 +32,20 @@ function ChatLog({ id, title, body }) {
   };
 
   return (
-    <div className="chat-log" onClick={switchToChat}>
-      <h1>{title}</h1>
-      <span className="id">{id}</span>
-      <span>{body}</span>
-      <button onClick={deleteChatLog}>
+    <div
+      className={`chat-log ${chatId === id ? "active-chat" : ""}`}
+      onClick={switchToChat}
+    >
+      <div className="chat-log-info">
+        <span className="id">#{id}</span>
+        <h1>{title}</h1>
+        <span>
+          {body
+            ? body.slice(1).join("").split(" ").slice(0, 5).join(" ") + "...."
+            : "No messages"}
+        </span>
+      </div>
+      <button className="chat-log-btn" onClick={deleteChatLog}>
         <FaTrash />
       </button>
     </div>

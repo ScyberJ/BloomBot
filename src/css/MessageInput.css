@@ -19,7 +19,6 @@
 
 .message-input-container {
   height: 50px;
-  overflow: hidden;
   color: var(--text-color);
 }
 

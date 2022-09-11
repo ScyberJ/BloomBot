@@ -1,7 +1,7 @@
 import "../css/MessageInput.css";
 import BindedInput from "./BindedInput";
-import { updateChatLog } from "../Features/chatLog/chatLogSlice";
-import { setMessages } from "../Features/chat/chatSlice";
+import { setChatLog } from "../Features/chatLog/chatLogSlice";
+import { setMessages, useFuncOnCurrentId } from "../Features/chat/chatSlice";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState, useEffect } from "react";
@@ -19,10 +19,13 @@ const parameters = {
 let userMessages = [];
 
 function MessageInput() {
+  let switchedDuringRequest = false;
+
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
   const [message, setMessage] = useState("");
+  const [currentId, setCurrentId] = useState(true);
   const chat = useSelector((state) => state.chat);
   const { id, botname, username, messages } = chat;
 
@@ -76,6 +79,7 @@ function MessageInput() {
   };
 
   const onClickHandler = async () => {
+    setCurrentId(false);
     userMessages.push(message);
     if (messages.length > 30) {
       dispatch(setMessages(messages.slice(10)));
@@ -93,7 +97,7 @@ function MessageInput() {
   };
 
   async function request(data) {
-    const prevId = id;
+    switchedDuringRequest = false;
     dispatch(
       setMessages([
         ...messages,
@@ -120,15 +124,19 @@ function MessageInput() {
     const sanitizedText = sanitizeGeneratedText(generated_text);
     // console.log(generated_text);
     // console.log(sanitizedText);
-    console.log(id);
 
-    prevId === id
-      ? dispatch(setMessages(sanitizedText))
-      : dispatch(updateChatLog({ ...chat, messages: sanitizedText }));
+    switchedDuringRequest
+      ? dispatch(setChatLog({ ...chat, messages: sanitizedText }))
+      : dispatch(setMessages(sanitizedText));
   }
 
   useEffect(() => {
-    dispatch(updateChatLog(chat));
+    switchedDuringRequest = true;
+    console.log("this is from useEffect " + switchedDuringRequest);
+  }, [id]);
+
+  useEffect(() => {
+    dispatch(setChatLog(chat));
     localStorage.setItem("state", JSON.stringify(state));
   }, [messages]);
 

@@ -23,6 +23,9 @@ export const chatSlice = createSlice({
         setId: (state, action) => {
             state.id = action.payload
         },
+        useFuncOnCurrentId: (state, action) => {
+            action.payload(state.id)
+        },
         setUsername: (state, action) => {
             state.username = action.payload
         },
@@ -38,6 +41,6 @@ export const chatSlice = createSlice({
     }
 })
 
-export const { setChat, setId, setUsername, setBotname, setMessages, clearMessages } = chatSlice.actions
+export const { setChat, setId, useFuncOnCurrentId, setUsername, setBotname, setMessages, clearMessages } = chatSlice.actions
 
 export default chatSlice.reducer

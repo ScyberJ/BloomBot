@@ -6,6 +6,7 @@
   --text-color-inverted: #241224;
   --bg-color: #faf1f1ed;
   --darker-bg-color: #2d2b2b;
+  box-sizing: border-box;
 
   background-color: #1f1e1e;
   color: var(--text-color-inverted);
@@ -16,8 +17,15 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+}
 
+html {
   box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 ::-webkit-scrollbar {
