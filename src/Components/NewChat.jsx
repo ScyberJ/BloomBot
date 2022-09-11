@@ -1,6 +1,6 @@
 import "../css/NewChat.css";
 import { setChat } from "../Features/chat/chatSlice";
-import { addChat } from "../Features/chatLog/chatLogSlice";
+import { addChatLog } from "../Features/chatLog/chatLogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
@@ -16,7 +16,7 @@ function NewChat({ isVisible, setIsVisible }) {
 
   useEffect(() => {
     if (!allowChange) return;
-    dispatch(addChat(chat));
+    dispatch(addChatLog(chat));
     setAllowChange(false);
   }, [chat.id]);
 

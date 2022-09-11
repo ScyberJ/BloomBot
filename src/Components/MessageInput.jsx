@@ -1,6 +1,6 @@
 import "../css/MessageInput.css";
 import BindedInput from "./BindedInput";
-import { updateChat } from "../Features/chatLog/chatLogSlice";
+import { updateChatLog } from "../Features/chatLog/chatLogSlice";
 import { setMessages } from "../Features/chat/chatSlice";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -93,6 +93,7 @@ function MessageInput() {
   };
 
   async function request(data) {
+    const prevId = id;
     dispatch(
       setMessages([
         ...messages,
@@ -117,13 +118,17 @@ function MessageInput() {
     const [{ generated_text }] = json;
 
     const sanitizedText = sanitizeGeneratedText(generated_text);
-    console.log(generated_text);
-    console.log(sanitizedText);
-    dispatch(setMessages(sanitizedText));
+    // console.log(generated_text);
+    // console.log(sanitizedText);
+    console.log(id);
+
+    prevId === id
+      ? dispatch(setMessages(sanitizedText))
+      : dispatch(updateChatLog({ ...chat, messages: sanitizedText }));
   }
 
   useEffect(() => {
-    dispatch(updateChat(chat));
+    dispatch(updateChatLog(chat));
     localStorage.setItem("state", JSON.stringify(state));
   }, [messages]);
 
