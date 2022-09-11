@@ -20,6 +20,7 @@ let userMessages = [];
 
 function MessageInput() {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state);
 
   const [message, setMessage] = useState("");
   const chat = useSelector((state) => state.chat);
@@ -123,6 +124,7 @@ function MessageInput() {
 
   useEffect(() => {
     dispatch(updateChat(chat));
+    localStorage.setItem("state", JSON.stringify(state));
   }, [messages]);
 
   return (

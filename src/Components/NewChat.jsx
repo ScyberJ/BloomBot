@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 function NewChat({ isVisible, setIsVisible }) {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state);
   const chat = useSelector((state) => state.chat);
 
   const [allowChange, setAllowChange] = useState(false);
@@ -36,6 +37,8 @@ function NewChat({ isVisible, setIsVisible }) {
     };
 
     dispatch(setChat(newChat));
+
+    localStorage.setItem("state", JSON.stringify(state));
 
     setAllowChange(true);
     setIsVisible(!isVisible);

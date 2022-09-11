@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const { chat, ...rest } = JSON.parse(localStorage.getItem('state'))
+
 const initialState = {
-    id: 0,
-    username: 'Guest',
-    botname: 'BloomBot',
-    messages: [],
+    id: chat.id || null,
+    username: chat.username || '',
+    botname: chat.botname || '',
+    messages: chat.messages || [],
 }
+
+
 
 export const chatSlice = createSlice({
     name: 'chat',

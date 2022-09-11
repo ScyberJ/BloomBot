@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const { chatLog, ...rest } = JSON.parse(localStorage.getItem('state'))
+
 const initialState = {
-    chats: []
+    chats: chatLog.chats || []
 }
 
 export const chatLogSlice = createSlice({

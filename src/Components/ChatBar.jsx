@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 function ChatBar() {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+
   const botname = useSelector((state) => state.chat.botname);
 
   const clear = () => {
     dispatch(clearMessages());
+    localStorage.setItem("state", JSON.stringify(state));
     // userMessages = [];
   };
 
