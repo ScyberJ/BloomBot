@@ -12,32 +12,33 @@ function ChatLogs() {
   const renderChatLogs = () => {
     return chats.map(({ id, username, botname, messages }, ind) => (
       <ChatLog
-        key={id + Math.floor(Math.random() * 10)}
+        key={id}
         id={id}
         title={botname}
         body={messages[messages.length - 1]}
       />
     ));
   };
-
   const toggleCreateChat = () => {
     setIsCreateChatVisisble(!isCreateChatVisisble);
   };
 
   return (
     <div className="chat-logs">
-      <div className="chat-logs-header">
-        <h1>Chats</h1>
-        <button onClick={toggleCreateChat}>
-          <FaPlus />
-        </button>
+      <div className="chat-logs-header-container">
+        <div className="chat-logs-header">
+          <h1>Chats</h1>
+          <button onClick={toggleCreateChat}>
+            <FaPlus />
+          </button>
+        </div>
         <NewChat
           isVisible={isCreateChatVisisble}
           setIsVisible={setIsCreateChatVisisble}
         />
       </div>
       <hr />
-      {renderChatLogs()}
+      <div className="chat-logs-components">{renderChatLogs()}</div>
     </div>
   );
 }

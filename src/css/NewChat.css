@@ -1,14 +1,44 @@
 .new-chat-container {
+  padding: 0 10px;
   flex-grow: 1;
-  max-width: fit-content;
-  height: fit-content;
   background-color: var(--primary-color);
   color: var(--text-color);
-  position: absolute;
-  right: 0;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.no-chat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  width: 300px;
+}
+
+.new-chat-title {
+  margin-bottom: 10px;
 }
 
 .new-chat-inputs {
   display: flex;
   flex-direction: column;
+}
+
+.new-chat-inputs input {
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+.new-chat-container button {
+  margin: 5px 0;
+  transition: all 0.2s;
+}
+
+.new-chat-container button:hover {
+  background-color: var(--text-color);
+  color: var(--primary-color);
 }

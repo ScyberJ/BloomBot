@@ -41,7 +41,7 @@ function ChatLog({ id, title, body }) {
         <h1>{title}</h1>
         <span>
           {body
-            ? body.slice(1).join("").split(" ").slice(0, 5).join(" ") + "...."
+            ? body.slice(1).join("").split(" ").slice(0, 4).join(" ") + "...."
             : "No messages"}
         </span>
       </div>

@@ -20,7 +20,7 @@
 }
 
 .main {
-  width: clamp(300px, 450px, 550px);
+  width: 400px;
   flex-direction: column;
 }
 
