@@ -1,7 +1,7 @@
 import "../css/MessageInput.css";
 import BindedInput from "./BindedInput";
 import { setChatLog } from "../Features/chatLog/chatLogSlice";
-import { setMessages, useFuncOnCurrentId } from "../Features/chat/chatSlice";
+import { setChat, setMessages } from "../Features/chat/chatSlice";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState, useEffect } from "react";
@@ -16,18 +16,22 @@ const parameters = {
   eos_token_id: null,
 };
 
-let userMessages = [];
-
-function MessageInput() {
+function MessageInput({ userMessages, setUserMessages }) {
   let switchedDuringRequest = false;
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
-  const [message, setMessage] = useState("");
-  const [currentId, setCurrentId] = useState(true);
   const chat = useSelector((state) => state.chat);
   const { id, botname, username, messages } = chat;
+  const [message, setMessage] = useState("");
+  const [currentId, setCurrentId] = useState({ id: "", allowChange: false });
+  const userMessagesRef = useRef(userMessages);
+
+  const updateUserMessages = (newState) => {
+    userMessagesRef.current = newState;
+    setUserMessages(newState);
+  };
 
   const API_TOKEN = "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";
 
@@ -62,13 +66,14 @@ function MessageInput() {
         .map((text, ind, arr) => {
           if (
             !(
-              userMessages.some((msg) =>
+              userMessagesRef.current.some((msg) =>
                 text.includes(`${username}: ${msg}`)
               ) || text.includes(`${botname}:`)
             ) &&
             !stopInd.stop
           ) {
             stopInd = { ind: arr.indexOf(text), stop: true };
+            console.log("this is the culprit" + text);
           }
           return text;
         })
@@ -79,8 +84,7 @@ function MessageInput() {
   };
 
   const onClickHandler = async () => {
-    setCurrentId(false);
-    userMessages.push(message);
+    updateUserMessages([...userMessages, message]);
     if (messages.length > 30) {
       dispatch(setMessages(messages.slice(10)));
     }
@@ -90,14 +94,13 @@ function MessageInput() {
     });
   };
 
-  const onKeyDownHandler = (e) => {
-    if (e.key === "Enter") {
-      sendBtn.current.click();
+  const onKeyDownHandler = async (event) => {
+    if (event.key === "Enter") {
+      await onClickHandler();
     }
   };
 
   async function request(data) {
-    switchedDuringRequest = false;
     dispatch(
       setMessages([
         ...messages,
@@ -116,24 +119,32 @@ function MessageInput() {
       }
     );
 
+    setCurrentId({ id: chat.id, allowChange: true });
+
     const json = await response.json();
 
     // destructuring of response
     const [{ generated_text }] = json;
 
     const sanitizedText = sanitizeGeneratedText(generated_text);
-    // console.log(generated_text);
-    // console.log(sanitizedText);
 
-    switchedDuringRequest
-      ? dispatch(setChatLog({ ...chat, messages: sanitizedText }))
-      : dispatch(setMessages(sanitizedText));
+    dispatch(setChatLog({ ...chat, messages: sanitizedText }));
   }
 
   useEffect(() => {
-    switchedDuringRequest = true;
-    console.log("this is from useEffect " + switchedDuringRequest);
-  }, [id]);
+    updateUserMessages(messages.filter((msg) => msg.includes(`${username}: `)));
+  }, []);
+
+  useEffect(() => {
+    if (currentId.id === chat.id && currentId.allowChange) {
+      console.log("allowed");
+      for (let currentChat of state.chatLog.chats) {
+        console.log(currentChat);
+        currentChat.id === chat.id ? dispatch(setChat(currentChat)) : "";
+      }
+      setCurrentId({ ...currentId, allowChange: false });
+    }
+  }, [state.chatLog.chats]);
 
   useEffect(() => {
     dispatch(setChatLog(chat));

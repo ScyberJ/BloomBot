@@ -20,7 +20,8 @@
 }
 
 .main {
-  width: 350px;
+  --main-width: 350px;
+  width: var(--main-width);
   flex-direction: column;
   border-right: 1px solid rgba(255, 255, 255, 10%);
   box-shadow: 1px 0 10px 1px rgba(0, 0, 0, 20%);
@@ -48,13 +49,13 @@
 
 @media only screen and (max-width: 800px) {
   .main {
-    display: none;
+    position: absolute;
+    left: calc(-1 * var(--main-width));
+    transition: all 0.2s;
+    height: 100%;
   }
   .show {
-    display: flex;
-    position: absolute;
     left: 0;
-    height: 100%;
   }
 
   .chat-logs-visibility-toggle {

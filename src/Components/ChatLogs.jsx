@@ -1,7 +1,7 @@
 import "../css/ChatLogs.css";
 import ChatLog from "./ChatLog";
 import NewChat from "./NewChat";
-import { FaPlus } from "react-icons/fa";
+import { AiOutlinePlus } from "react-icons/ai";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -29,8 +29,8 @@ function ChatLogs() {
         <div className="chat-logs-header">
           <h1>Chats</h1>
           <button onClick={toggleCreateChat}>
-            <FaPlus
-              className={`add-chat-icon ${
+            <AiOutlinePlus
+              className={`add-chat-icon xl ${
                 isCreateChatVisisble ? "rotate" : ""
               }`}
             />

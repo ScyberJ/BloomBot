@@ -1,7 +1,10 @@
 import "../css/ChatLog.css";
 import { setChat } from "../Features/chat/chatSlice";
-import { FaTrash } from "react-icons/fa";
-import { removeChatLog } from "../Features/chatLog/chatLogSlice";
+import { AiOutlineDelete } from "react-icons/ai";
+import {
+  removeChatLog,
+  setIsChatLogsVisible,
+} from "../Features/chatLog/chatLogSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function ChatLog({ id, title, body }) {
@@ -13,6 +16,7 @@ function ChatLog({ id, title, body }) {
     chats.forEach((chatlog) => {
       if (chatlog.id === id) dispatch(setChat(chatlog));
     });
+    dispatch(setIsChatLogsVisible(false));
   };
 
   const deleteChatLog = (event) => {
@@ -46,7 +50,7 @@ function ChatLog({ id, title, body }) {
         </span>
       </div>
       <button className="chat-log-btn" onClick={deleteChatLog}>
-        <FaTrash />
+        <AiOutlineDelete className="xl" />
       </button>
     </div>
   );

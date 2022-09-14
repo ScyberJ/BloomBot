@@ -37,10 +37,11 @@ export const chatSlice = createSlice({
         },
         clearMessages: (state) => {
             state.messages = []
+            state.userMessages = []
         }
     }
 })
 
-export const { setChat, setId, useFuncOnCurrentId, setUsername, setBotname, setMessages, clearMessages } = chatSlice.actions
+export const { setChat, setId, setUsername, setBotname, setMessages, clearMessages } = chatSlice.actions
 
 export default chatSlice.reducer

@@ -85,3 +85,7 @@ input::placeholder {
   opacity: 0.6;
   color: var(--dm-text-color);
 }
+
+button .xl {
+  font-size: 20px;
+}

@@ -27,3 +27,7 @@
   font-weight: 600;
   text-transform: uppercase;
 }
+
+.close-icon:hover {
+  color: var(--delete-color);
+}
