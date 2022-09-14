@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const { chatLog, ...rest } = JSON.parse(localStorage.getItem('state'))
 
 const initialState = {
-    chats: chatLog.chats || []
+    chats: chatLog.chats || [],
+    isChatLogsVisible: chatLog.isChatLogsVisible || false
 }
 
 export const chatLogSlice = createSlice({
@@ -25,10 +26,14 @@ export const chatLogSlice = createSlice({
         },
         clearChatLogs: (state) => {
             state.chats = []
+        },
+        setIsChatLogsVisible: (state, action) => {
+            if (action.payload) state.isChatLogsVisible = action.payload
+            else state.isChatLogsVisible = !state.isChatLogsVisible
         }
     }
 })
 
-export const { addChatLog, removeChatLog, setChatLog, clearChatLogs } = chatLogSlice.actions
+export const { addChatLog, removeChatLog, setChatLog, clearChatLogs, setIsChatLogsVisible } = chatLogSlice.actions
 
 export default chatLogSlice.reducer

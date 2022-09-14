@@ -4,13 +4,16 @@ import ChatLogs from "./Components/ChatLogs";
 import ActiveChat from "./Components/Chat";
 import { useSelector } from "react-redux";
 import NoMessages from "./Components/NoMessages";
+import { useState } from "react";
 
 function App() {
-  const chatLogs = useSelector((state) => state.chatLog.chats);
-  console.log(chatLogs);
+  const { chats: chatLogs, isChatLogsVisible } = useSelector(
+    (state) => state.chatLog
+  );
+
   return (
     <div className="App">
-      <div className="main">
+      <div className={`main ${isChatLogsVisible ? "show" : ""}`}>
         <Navbar />
         <ChatLogs />
       </div>

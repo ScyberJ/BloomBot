@@ -5,11 +5,4 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/BloomBot/',
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      watch: {
-        chokidar: false
-      }
-    }
-  }
 })

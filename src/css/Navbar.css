@@ -8,7 +8,7 @@
   margin: 0;
   width: 100%;
   height: 70px;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: var(--primary-color);
   color: var(--text-color);
 }
@@ -24,6 +24,6 @@
 
 .logo-container span {
   font-size: 2.3em;
-  font-weight: bold;
+  font-weight: 600;
   text-transform: uppercase;
 }

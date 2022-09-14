@@ -54,7 +54,7 @@ function NewChat({ isVisible, setIsVisible }) {
           : "new-chat-container no-chat"
       }
     >
-      <h1 className="new-chat-title">Create Chat</h1>
+      <h2 className="new-chat-title">Create Chat</h2>
       <div className="new-chat-inputs">
         <input type="text" ref={usernameInput} placeholder="Enter Username" />
         <input type="text" ref={botnameInput} placeholder="Enter Botname" />

@@ -1,19 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;600&display=swap");
 
 :root {
-  --primary-color: #101011;
-  --text-color: #edfafa;
-  --text-color-inverted: #241224;
-  --bg-color: #faf1f1ed;
-  --darker-bg-color: #2d2b2b;
+  --primary-color: #291d23;
+  --primary-color-lighter: #62344a;
+
+  --secondary-color: hsl(333, 57%, 75%);
+  --secondary-color-lighter: hsl(333, 78%, 82%);
+
+  --lm-text-color: #221f21;
+  --dm-text-color: #fce5ef;
+
+  --lm-bg-color: #faf0f0ed;
+  --dm-bg-color: #583c49;
+
+  --delete-color: #ff4545;
+
   box-sizing: border-box;
 
-  background-color: #1f1e1e;
-  color: var(--text-color-inverted);
+  background-color: var(--dm-bg-color);
+  color: var(--dm-text-color);
 
   margin: 0;
 
-  font-family: "Varela Round", Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -29,11 +38,11 @@ html {
 }
 
 ::-webkit-scrollbar {
-  background-color: #292e2f;
+  background-color: var(--primary-color);
   color: #ccc3b5;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #4b5155;
+  background-color: var(--dm-bg-color);
 }
 ::-webkit-scrollbar-thumb:hover {
   background-color: #616a6f;
@@ -62,7 +71,17 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: var(--primary-color);
-  color: var(--text-color);
+  color: var(--dm-text-color);
   cursor: pointer;
   transition: border-color 0.25s;
+}
+
+input {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+input::placeholder {
+  opacity: 0.6;
+  color: var(--dm-text-color);
 }

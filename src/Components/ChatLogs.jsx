@@ -29,7 +29,11 @@ function ChatLogs() {
         <div className="chat-logs-header">
           <h1>Chats</h1>
           <button onClick={toggleCreateChat}>
-            <FaPlus />
+            <FaPlus
+              className={`add-chat-icon ${
+                isCreateChatVisisble ? "rotate" : ""
+              }`}
+            />
           </button>
         </div>
         <NewChat
@@ -37,7 +41,6 @@ function ChatLogs() {
           setIsVisible={setIsCreateChatVisisble}
         />
       </div>
-      <hr />
       <div className="chat-logs-components">{renderChatLogs()}</div>
     </div>
   );

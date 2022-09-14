@@ -1,7 +1,7 @@
 import "../css/ChatLog.css";
 import { setChat } from "../Features/chat/chatSlice";
 import { FaTrash } from "react-icons/fa";
-import { removeChatLog as removeChatLog } from "../Features/chatLog/chatLogSlice";
+import { removeChatLog } from "../Features/chatLog/chatLogSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function ChatLog({ id, title, body }) {
@@ -38,7 +38,7 @@ function ChatLog({ id, title, body }) {
     >
       <div className="chat-log-info">
         <span className="id">#{id}</span>
-        <h1>{title}</h1>
+        <h3>{title}</h3>
         <span>
           {body
             ? body.slice(1).join("").split(" ").slice(0, 4).join(" ") + "...."

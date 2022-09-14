@@ -12,16 +12,9 @@
 }
 
 .chat-logs-header {
-  margin-bottom: 10px;
   padding: 0 10px;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-}
-
-.chat-logs hr {
-  width: 90%;
-  opacity: 0.2;
 }
 
 .chat-logs-components {
@@ -29,4 +22,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.add-chat-icon {
+  transition: all 0.2s;
+}
+
+.rotate {
+  transform: rotate(45deg);
+}
+
+button:hover .rotate {
+  color: var(--delete-color);
 }

@@ -1,24 +1,13 @@
 .message-input-container,
-.message-input-container > span,
-.message-input-container > input[type="text"],
-.btn-container,
-.btn-container > button {
-  height: 100%;
-}
-
-.message-input-container,
 .btn-container {
   display: flex;
   justify-content: center;
-}
-
-.message-input-container,
-.btn-container {
   align-items: center;
+  background-color: var(--primary-color);
 }
 
 .message-input-container {
-  height: 50px;
+  min-height: 70px;
   color: var(--text-color);
 }
 
@@ -27,11 +16,25 @@
   padding: 10px 20px;
   display: flex;
   align-items: center;
+  font-weight: 600;
 }
 
 .message-input-container input[type="text"] {
-  background-color: var(--primary-color);
+  padding: 10px 15px;
+  background-color: var(--dm-bg-color);
   flex-grow: 1;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  border-bottom: 4px solid var(--dm-bg-color);
+  color: var(--text-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.message-input-container input[type="text"]:focus {
+  border-radius: 5px;
+
+  border-bottom: 4px solid var(--lm-bg-color);
 }
 
 .btn-container button {
@@ -42,10 +45,11 @@
   width: fit-content;
 }
 
-.btn-send {
-  transition: all 0.3s;
+.btn-send,
+.send-icon {
+  transition: all 0.1s;
 }
 
-.btn-send:hover {
-  background-color: rgb(41, 39, 39);
+.btn-send:hover .send-icon {
+  transform: rotate(-90deg);
 }

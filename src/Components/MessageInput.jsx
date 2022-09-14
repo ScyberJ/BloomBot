@@ -151,7 +151,7 @@ function MessageInput() {
       />
       <div className="btn-container">
         <button className="btn-send" ref={sendBtn} onClick={onClickHandler}>
-          <FaArrowRight />
+          <FaArrowRight className="send-icon" />
         </button>
       </div>
     </div>

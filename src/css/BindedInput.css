@@ -1,4 +1,4 @@
-input[type="text"] {
+.binded-input input[type="text"] {
   border: none;
   padding: 10px 15px;
   background-color: var(--darker-bg-color);
@@ -6,7 +6,7 @@ input[type="text"] {
   font-size: 16px;
 }
 
-input[type="text"]:focus {
+.binded-input input[type="text"]:focus {
   outline: none;
   border: none;
 }

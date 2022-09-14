@@ -5,7 +5,7 @@ function BindedInput({ name, bindedVar, setVarFunc, onKeyDownHandler }) {
 
   return (
     <input
-      className={name}
+      className={"binded-input" + name}
       name={name}
       type="text"
       onChange={(e) => onChangeHandler(e, setVarFunc)}
